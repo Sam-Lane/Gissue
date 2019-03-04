@@ -7,6 +7,11 @@
 $ pip install -r requirements.txt
 ```
 
+##### link gissue.py to /usr/local/bin
+```bash
+$ ln -s $PWD/gissue/gissue.py /usr/local/bin/gissue
+```
+
 ## Using Gissue
 
 ### Authenticating With Github.

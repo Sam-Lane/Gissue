@@ -7,6 +7,7 @@ import re
 import argparse
 
 from auth import Auth
+import issue
 
 
 
@@ -70,6 +71,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--generate-token', nargs=2)
     parser.add_argument('--update-token', nargs=1)
+    parser.add_argument('add', nargs='*')
     args = parser.parse_args()
 
     if args.generate_token:
@@ -78,9 +80,20 @@ if __name__ == "__main__":
     if args.update_token:
         auth.update_token(args.update_token[0])
         exit()
-
+    
 
     token = auth.get_token()
+
+    if args.add and git_in_this_directory():
+        newIssue = issue.create_new_issue()
+        issue.send_issue(newIssue, token, get_repo_and_user())
+        exit()
+    elif args.add and not git_in_this_directory():
+        print("This isn't a git directory")
+        exit()
+
+
+    
 
     if not git_in_this_directory():
         #if no .git in this directory lets get all your current issues.

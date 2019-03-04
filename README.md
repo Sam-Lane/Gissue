@@ -16,6 +16,15 @@ Before you can use gissue you need to authenticate with GitHub. Gissue uses oaut
 $ gissue --generate-token <username> <password>
 ```
 
+If your account is secured with oauth this will not work. You will need to go to Github and generate a token in your user settings. Once you have your token run:
+
+```bash
+$ gissue --update-token <your token from github here>
+```
+
+You should now be authenticated with the Github servers.
+
+
 ### Getting Issues.
 
 

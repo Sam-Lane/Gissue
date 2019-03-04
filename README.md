@@ -49,4 +49,27 @@ When running gissue in a directory that does not contain a ```.git``` directory 
 
 
 
-### Adding issues (todo)
+### Adding issues
+Creating an issue is easy
+
+```bash
+$ gissue add
+title your issue
+> my new issue
+```
+
+- gissue will now open your editor defined in the users env variables or default to nano.
+
+- Here you can write the body of your issue. Lines starting with # are ignored. Or leave it blank.
+
+- Save and quit from the editor and your new issue will be posted to github.
+
+```bash
+my new issue has been created
+```
+
+## Todo:
+- [ ] Add labels to new issue
+- [ ] Add comment to existing label
+- [ ] Close an issue
+- [ ] Open an issue to github website

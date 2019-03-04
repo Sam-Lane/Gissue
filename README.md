@@ -1,5 +1,6 @@
 # Gissue
 
+[![Build Status](https://travis-ci.org/Sam-Lane/Gissue.svg?branch=master)](https://travis-ci.org/Sam-Lane/Gissue)
 [![issues](https://img.shields.io/github/issues-raw/Sam-Lane/Gissue.svg)]()
 
 

@@ -26,7 +26,7 @@ def write_issue_body(title):
     open users editor set in env or defaults to vim.
     on save will return what user has written as str.
     """
-    EDITOR = os.environ.get('EDITOR','vim')     
+    EDITOR = os.environ.get('EDITOR','nano')     
 
     initial_message = b"#\t" + bytes(title, encoding='utf-8') + b"\n#\n#write the body of your issue in here\n#lines starting with # are ignored"
 

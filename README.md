@@ -69,6 +69,7 @@ my new issue has been created
 ```
 
 ## Todo:
+- [ ] Add testing suite
 - [ ] Add labels to new issue
 - [ ] Add comment to existing label
 - [ ] Close an issue

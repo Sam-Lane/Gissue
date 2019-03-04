@@ -1,6 +1,9 @@
 # Gissue
-🐙 Github issue manager in the command line
 
+[![issues](https://img.shields.io/github/issues-raw/Sam-Lane/Gissue.svg)]()
+
+
+🐙 Github issue manager in the command line
 
 ## Installing
 ```bash

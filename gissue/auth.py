@@ -32,10 +32,10 @@ class Auth():
 
     def gen_token(self, username, passwd):
         url = "https://api.github.com/authorizations"
-        payload = "{\n  \"scopes\": [\n    \"repo\"\n  ],\n  \"note\": \"Gissue\"\n}"
+        payload = {'scopes':['repo'],'note':'Gissue'}
         
 
-        response = requests.request("POST", url, data=payload, auth=(username, passwd))
+        response = requests.post(url, data=payload, auth=(username, passwd))
         if response.status_code == 201:
             token = response.json()['token']
             self.update_token(token)

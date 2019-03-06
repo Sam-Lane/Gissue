@@ -1,3 +1,6 @@
-  language: python
-  script:
-    - pytest
+language: python
+script:
+- pytest
+env:
+  global:
+    secure: UPUIqk+wkbr4Lla8ah85fe8JWhnHSN9VnL3im/axntOCxoCO/FyKTeLr69mIutesaX2KcOSvXSjJfteSSKPGYaX8tZ4+cp+4kRuhfy9CoEyfBZUb4JgYm82I9JNOooXMPhOSiR58BVZQJWTJtAa6RYpivqTtjDuQIIt3zO1N2V0qKEMFcWa2FONBfercJ2Z0PWSCY329DjiePjgyRfi9rwjCpBV21uwL3dpvQyq1sOgUb5JvGbdo56DI9XqG/K/12CJQe3ypCvtdVJetqV/wN+PNw4iRyXuZh2tURc3wOqz7o9b5x5ZFr/ZYbT54Q/8owNEixVIBb+7pZdJPFbC06D22IUxL12Ne96KXYofwVmqBvmaVqL4r+AkUZkq0A4VftbcvXc6gF+Krz528tS8cMt/8hXJypqhEHjGHQGU+/ljOOfX5ItaCjGm6ElCgjNGKtpcGuvtmLYQlCvWdlfSsSz7f2d9Vy6bMbvZdTgY02l6c1tzSSGNvRbKF5cWAYOmo/LF3n0p4x3o+U3G9KyEfmsoL1HXG68/k3t+jG4mwdV2V+V6eClp+2gBDtWiEgHB9umQMuPnltbR2ftFAbwzDOzhUiBOQYA4WlkURr2HXM+XP674KWdQ6E17Hy4sFChjwC/ZwArTRUS/uEowZCCAKpqQiex0QF6WIUqeDvLAAJ5k=

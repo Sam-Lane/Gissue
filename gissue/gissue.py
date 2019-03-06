@@ -59,9 +59,13 @@ def get_label_type(label_data):
     }.get(label_data, "")
 
 def print_issue(issue_data):
-    label = get_label_type(issue_data['labels'][0]['name'])
+    if len(issue_data['labels']) > 0:
+        label = get_label_type(issue_data['labels'][0]['name'])
+        print(issue_data['title'], " - ", issue_data['labels'][0]['name'], label)
+    else:
+        print(issue_data['title'])
 
-    print(issue_data['title'], " - ", issue_data['labels'][0]['name'], label)
+    
 
 
 

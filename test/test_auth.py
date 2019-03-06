@@ -11,6 +11,8 @@ def test_update_token():
     if 'TRAVIS' in os.environ:
         auth = Auth()
         auth.update_token(os.environ['TOKEN'])
+        home = os.path.expanduser("~")
+        gissueFile = os.path.join(home, ".gissue")
 
         assert os.path.exists('.gissue')
     else:

@@ -14,7 +14,7 @@ def test_update_token():
         home = os.path.expanduser("~")
         gissueFile = os.path.join(home, ".gissue")
 
-        assert os.path.exists('.gissue')
+        assert os.path.isfile(gissueFile)
     else:
         pass
 

@@ -93,7 +93,7 @@ if __name__ == "__main__":
     parser.add_argument('add', nargs='*')
     args = parser.parse_args()
 
-    if args.generate_token != None:
+    if args.generate_token is not None:
         username_password = get_user_and_pass()
         auth.gen_token(username_password['user'], username_password['password'])
         exit()

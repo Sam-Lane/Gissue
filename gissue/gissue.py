@@ -54,14 +54,14 @@ def git_in_this_directory():
 
 def get_label_type(label_data):
     return {
-        'bug' : ' 🐛',
-        'enhancement' : ' 💉'
+        'bug' : 'x 🐛',
+        'enhancement' : '💉'
     }.get(label_data, "")
 
 def print_issue(issue_data):
     if len(issue_data['labels']) > 0:
         label = get_label_type(issue_data['labels'][0]['name'])
-        print(issue_data['title'], " - ", issue_data['labels'][0]['name'], label)
+        print(label, issue_data['labels'][0]['name'], " - ", issue_data['title'])
     else:
         print(issue_data['title'])
 

@@ -22,8 +22,10 @@ $ ln -s $PWD/gissue/gissue.py /usr/local/bin/gissue
 Before you can use gissue you need to authenticate with GitHub. Gissue uses oauth2 to authenticate and it is super simple to get a token. Simply run:
 
 ```bash
-$ gissue --generate-token <username> <password>
+$ gissue --generate-token
 ```
+
+You will then be prompted for your Github username & password.
 
 If your account is secured with oauth this will not work. You will need to go to Github and generate a token in your user settings. Once you have your token run:
 

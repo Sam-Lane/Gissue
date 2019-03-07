@@ -66,6 +66,21 @@ def print_issue(issue_data):
         print(issue_data['title'])
 
     
+def get_user_and_pass():
+    from getpass import getpass
+    """
+    get the users Github username and password
+    Password input is in non echo mode from terminal so no on lookers can see password.
+
+    returns a dictionary containing 'user' and 'password'
+    """
+    userpass = {'user' : '', 'password' : ''}
+
+    userpass['user'] = input("Github Username: ")
+    userpass['password'] = getpass()
+
+    return userpass
+
 
 
 
@@ -73,13 +88,14 @@ if __name__ == "__main__":
     auth = Auth()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--generate-token', nargs=2)
+    parser.add_argument('--generate-token', nargs='*')
     parser.add_argument('--update-token', nargs=1)
     parser.add_argument('add', nargs='*')
     args = parser.parse_args()
 
-    if args.generate_token:
-        auth.gen_token(args.generate_token[0], args.generate_token[1])
+    if args.generate_token != None:
+        username_password = get_user_and_pass()
+        auth.gen_token(username_password['user'], username_password['password'])
         exit()
     if args.update_token:
         auth.update_token(args.update_token[0])

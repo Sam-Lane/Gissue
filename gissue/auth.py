@@ -10,6 +10,7 @@ class Auth():
    
     def __init__(self):
         
+        self.token = None
         self.home = os.path.expanduser("~")
         self.gissueFile = os.path.join(self.home, ".gissue")
 
@@ -28,14 +29,17 @@ class Auth():
             
 
     def get_token(self):
-        return self.token
+        if self.token is not None and self.token is not "":
+            return self.token
+        else:
+            raise InvalidTokenError('You do not have a github token to authenticate.')
 
     def gen_token(self, username, passwd):
         url = "https://api.github.com/authorizations"
         payload = {'scopes':['repo'],'note':'Gissue'}
         
 
-        response = requests.post(url, data=payload, auth=(username, passwd))
+        response = requests.post(url, json=payload, auth=(username, passwd))
         if response.status_code == 201:
             token = response.json()['token']
             self.update_token(token)
@@ -44,5 +48,11 @@ class Auth():
         elif response.status_code == 401:
             print('Access Denied\nWrong username or password')
         else:
-            print('Something went wrong')
+            print(response)
 
+
+
+class InvalidTokenError(Exception):
+	def __init__(self, message):
+
+		super().__init__(message)

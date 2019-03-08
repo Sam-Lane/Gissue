@@ -6,7 +6,7 @@ import os
 import re
 import argparse
 
-from auth import Auth
+from auth import Auth, InvalidTokenError
 import issue
 
 
@@ -54,14 +54,18 @@ def git_in_this_directory():
 
 def get_label_type(label_data):
     return {
-        'bug' : 'x 🐛',
-        'enhancement' : '💉'
+        'bug' : '🐛 ',
+        'enhancement' : '💉 ',
+        'help wanted' : '🙏🏻 ',
+        'question' : '❓ ',
+        'good first issue' : '🐣 ',
+        'wontfix' : '⛔️ '
     }.get(label_data, "")
 
 def print_issue(issue_data):
     if len(issue_data['labels']) > 0:
         label = get_label_type(issue_data['labels'][0]['name'])
-        print(label, issue_data['labels'][0]['name'], " - ", issue_data['title'])
+        print(label + issue_data['labels'][0]['name'], " - ", issue_data['title'])
     else:
         print(issue_data['title'])
 
@@ -102,7 +106,11 @@ if __name__ == "__main__":
         exit()
     
 
-    token = auth.get_token()
+    try:
+        token = auth.get_token()
+    except InvalidTokenError as error:
+        print(error)
+        exit()
 
     if args.add and git_in_this_directory():
         newIssue = issue.create_new_issue()

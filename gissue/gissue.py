@@ -92,26 +92,29 @@ def add_issue(args, token):
     exit()
 
 def show_issues(args, token):
-    print("show parsed")
+    issue.get_issues(token, get_repo_and_user(), args.label)
 
 if __name__ == "__main__":
+
     auth = Auth()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--generate-token', nargs='*')
     parser.add_argument('--update-token', nargs=1)
 
+    # Define shared optional arguments
+
+    # TODO: Add help to the '--label' arg. Cant find a way to add it without throwing an error
+    parent_parser = argparse.ArgumentParser(add_help=False)
+    parent_parser.add_argument('--label', choices=['bug', 'duplicate', 'enhancement', 'good first issue', 'help wanted', 'invalid', 'question', 'hotfix'], nargs='+')
     # The commands the user can use
-
     sp = parser.add_subparsers()
-
-    sp_add = sp.add_parser('add', help='Add an issue to the current git repo')
-    sp_show = sp.add_parser('show', help='Shows all the issues in the current git repo')
+    sp_add = sp.add_parser('add', parents=[parent_parser], help='Add an issue to the current git repo')
+    sp_show = sp.add_parser('show', parents=[parent_parser], help='Shows all the issues in the current git repo')
 
     sp_add.set_defaults(func=add_issue)
     sp_show.set_defaults(func=show_issues)
 
-    parser.add_argument('--label', choices=['bug', 'duplicate', 'enhancement', 'good first issue', 'help wanted', 'invalid', 'question', 'hotfix'], nargs='+')
 
     args = parser.parse_args()
 

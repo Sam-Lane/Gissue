@@ -2,11 +2,24 @@ import sys, tempfile, os
 from subprocess import call
 
 import requests
+git_api_url = 'https://api.github.com/repos/{}/{}/issues'
 
+def get_url(repo_address):
+    return git_api_url.format(repo_address[0], repo_address[1])
+
+def get_issues(auth_token, repo_address, labels):
+    #params = {'access_token' : authToken}
+    params = {}
+    # TODO: Filtering by labels does not work
+    if labels:
+        params['labels'] = ",".join(labels)
+    print("Params:\n", params)
+    issues = requests.get(get_url(repo_address), params=params)
+    #print("Issues:\n ", issues)
 
 def send_issue(issueAsDictionary, authToken, repo_address):
     params = {'access_token' : authToken}
-    response = requests.post('https://api.github.com/repos/{}/{}/issues'.format(repo_address[0], repo_address[1]), params=params, json=issueAsDictionary)
+    response = requests.post(get_url(repo_address), params=params, json=issueAsDictionary)
     if response.status_code != 201:
         print("Something went wrong")
     else:

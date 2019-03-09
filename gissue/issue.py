@@ -12,11 +12,12 @@ def send_issue(issueAsDictionary, authToken, repo_address):
     else:
         print(issueAsDictionary['title'], "has been created")
 
-def create_new_issue():
+def create_new_issue(labels):
     issue = {"title" : "", "body" : "", "labels": []}
     issue['title'] = input("title your issue\n> ")
     issue['body'] = write_issue_body(issue['title'])
-
+    if labels:
+        issue['labels'] = labels
     return issue
 
 
@@ -26,7 +27,7 @@ def write_issue_body(title):
     open users editor set in env or defaults to vim.
     on save will return what user has written as str.
     """
-    EDITOR = os.environ.get('EDITOR','nano')     
+    EDITOR = os.environ.get('EDITOR','nano')
 
     initial_message = b"#\t" + bytes(title, encoding='utf-8') + b"\n#\n#write the body of your issue in here\n#lines starting with # are ignored"
 
@@ -36,7 +37,7 @@ def write_issue_body(title):
         call([EDITOR, '+set backupcopy=yes', tf.name])
         tf.seek(0)
         edited_message = tf.read()
-    
+
 
     edited_message = edited_message.decode('ascii')
     edited_message = edited_message.splitlines()

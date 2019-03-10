@@ -51,9 +51,9 @@ When running gissue inside a directory with a ```.git``` directory it will retri
 ```bash
 $ gissue
 
-🐛 bug - Error when not conected to internet
+(2)🐛 bug - Error when not conected to internet
 
-💉 enhancement - Feature to add issue from cli
+(1)💉 enhancement - Feature to add issue from cli
 ```
 
 

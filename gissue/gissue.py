@@ -18,7 +18,7 @@ def get_all_my_issues(authToken):
     """
     params = {'access_token' : authToken}
     req = requests.get('https://api.github.com/issues', params=params)
-    
+
     if req.status_code is not 200:
         raise IOError
     else:
@@ -69,7 +69,7 @@ def print_issue(issue_data):
     else:
         print(issue_data['title'])
 
-    
+
 def get_user_and_pass():
     from getpass import getpass
     """
@@ -86,9 +86,7 @@ def get_user_and_pass():
     return userpass
 
 
-
-
-if __name__ == "__main__":
+def main():
     auth = Auth()
 
     parser = argparse.ArgumentParser()
@@ -104,7 +102,7 @@ if __name__ == "__main__":
     if args.update_token:
         auth.update_token(args.update_token[0])
         exit()
-    
+
 
     try:
         token = auth.get_token()
@@ -121,7 +119,6 @@ if __name__ == "__main__":
         exit()
 
 
-    
 
     if not git_in_this_directory():
         #if no .git in this directory lets get all your current issues.
@@ -132,3 +129,8 @@ if __name__ == "__main__":
         issues = get_issues_for_dir(token, get_repo_and_user())
         for issue in issues:
             print_issue(issue)
+
+
+
+if __name__ == "__main__":
+    main()

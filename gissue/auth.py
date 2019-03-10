@@ -26,7 +26,7 @@ class Auth():
         self.token = tokenStr
         with open(self.gissueFile, "w") as file:
             file.write(self.token)
-            
+
 
     def get_token(self):
         if self.token is not None and self.token is not "":
@@ -37,7 +37,6 @@ class Auth():
     def gen_token(self, username, passwd):
         url = "https://api.github.com/authorizations"
         payload = {'scopes':['repo'],'note':'Gissue'}
-        
 
         response = requests.post(url, json=payload, auth=(username, passwd))
         if response.status_code == 201:

@@ -84,8 +84,11 @@ def show_issues(args, token):
     else:
         issues = issue.get_issues(token, get_repo_and_user(), None)
     
-    for i in issues:
-        print_issue(i)
+    if len(issues) > 0:
+        for i in issues:
+            print_issue(i)
+    else:
+        print('🎉 Hooray. No issues in this repo! 🎉')
 
 def main():
     auth = Auth()

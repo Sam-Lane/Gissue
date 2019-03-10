@@ -49,7 +49,7 @@ def print_issue(issue_data):
 
         print(issueString)
     else:
-        print(issue_data['title'][:150])
+        print("(" + str(issue_data['number']) + ")", "-", issue_data['title'][:150])
 
 
 def get_user_and_pass():

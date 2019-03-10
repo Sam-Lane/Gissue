@@ -96,3 +96,6 @@ $ gissue show
 - [ ] Close an issue
 - [ ] Open an issue to github website
 - [ ] Add filter options the issues retrived using the 'show' argument. For example 'gissue show open', which displays all open issues in the git repo.
+
+## Contributors:
+- [Erik Lange](https://github.com/eriklange)

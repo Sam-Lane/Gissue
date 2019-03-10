@@ -127,6 +127,7 @@ def main():
         exit()
 
     if git_in_this_directory():
+        print("\n")
         try:
             args.func(args, token)
         except AttributeError:

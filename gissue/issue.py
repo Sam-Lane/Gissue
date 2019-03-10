@@ -59,7 +59,7 @@ def write_issue_body(title):
     """
     EDITOR = os.environ.get('EDITOR','nano')
 
-    initial_message = b"#\t" + bytes(title, encoding='utf-8') + b"\n#\n#write the body of your issue in here\n#lines starting with # are ignored"
+    initial_message = b"\n#\t" + bytes(title, encoding='utf-8') + b"\n#\n#write the body of your issue in here\n#lines starting with # are ignored"
 
     with tempfile.NamedTemporaryFile(suffix=".tmp") as tf:
         tf.write(initial_message)

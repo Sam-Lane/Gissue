@@ -74,9 +74,25 @@ title your issue
 my new issue has been created
 ```
 
+### Adding issues with labels
+You can add issues with one or more labels with the optional ```--label``` argument.
+```bash
+$ gissue add --label bug
+```
+You can specify one or more labels from the following labels
+[bug, duplicate, enhancement, good first issue, help wanted, invalid, question, hotfix]
+
+### Show the issues in the git repostitory
+You can retrieve and print out all the issues in the current repo
+```bash
+$ gissue show
+```
+
+
 ## Todo:
 - [ ] Add testing suite
 - [ ] Add labels to new issue
 - [ ] Add comment to existing label
 - [ ] Close an issue
 - [ ] Open an issue to github website
+- [ ] Add filter options the issues retrived using the 'show' argument. For example 'gissue show open', which displays all open issues in the git repo.

@@ -8,14 +8,31 @@ def get_url(repo_address):
     return git_api_url.format(repo_address[0], repo_address[1])
 
 def get_issues(auth_token, repo_address, labels):
-    #params = {'access_token' : authToken}
-    params = {}
-    # TODO: Filtering by labels does not work
+    params = {'access_token' : auth_token}
     if labels:
         params['labels'] = ",".join(labels)
-    #print("Params:\n", params)
-    issues = requests.get(get_url(repo_address), params=params)
-    #print("Issues:\n ", issues)
+
+    req = requests.get(get_url(repo_address), params=params)
+    if req.status_code is not 200:
+        print(req)
+        raise IOError
+    else:
+        return req.json()
+
+
+def get_all_my_issues(authToken):
+    """
+    takes two params as string, user & passwd. which are used for auth.
+    returns all the issues from github on a user account.
+    """
+    params = {'access_token' : authToken}
+    req = requests.get('https://api.github.com/issues', params=params)
+
+    if req.status_code is not 200:
+        raise IOError
+    else:
+        return req.json()
+
 
 def send_issue(issueAsDictionary, authToken, repo_address):
     params = {'access_token' : authToken}

@@ -7,14 +7,29 @@ git_api_url = 'https://api.github.com/repos/{}/{}/issues'
 def get_url(repo_address):
     return git_api_url.format(repo_address[0], repo_address[1])
 
-def get_issues(auth_token, repo_address, labels):
+def get_issues(auth_token, repo_address, args):
+
     params = {'access_token' : auth_token}
-    if labels:
+
+    if args.label:
         params['labels'] = ",".join(labels)
 
-    req = requests.get(get_url(repo_address), params=params)
+    if args.state:
+        params['state'] = args.state
+
+    # Return a single issue
+
+    url = ""
+    if args.number:
+        url = get_url(repo_address) + "/" + str(args.number)
+    else:
+        url = get_url(repo_address)
+
+
+    req = requests.get(url, params=params)
+    #print("Status: ", req.status_code)
+
     if req.status_code is not 200:
-        print(req)
         raise IOError
     else:
         return req.json()

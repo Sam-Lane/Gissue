@@ -42,6 +42,7 @@ def get_label_type(label_data):
     }.get(label_data, label_data) # if we dont have a emoji for your label return the label text
 
 def print_issue(issue_data):
+
     if len(issue_data['labels']) > 0:
         label = get_label_type(issue_data['labels'][0]['name'])
 
@@ -80,13 +81,17 @@ def show_issues(args, token):
     #     print_issue(issue)
     #
     if args:
-        issues = issue.get_issues(token, get_repo_and_user(), args.label)
+        issues = issue.get_issues(token, get_repo_and_user(), args)
     else:
         issues = issue.get_issues(token, get_repo_and_user(), None)
-    
+
     if len(issues) > 0:
-        for i in issues:
-            print_issue(i)
+
+        if args.number:
+            print_issue(issues)
+        else:
+            for i in issues:
+                print_issue(i)
     else:
         print('🎉 Hooray. No issues in this repo! 🎉')
 
@@ -106,6 +111,10 @@ def main():
     sp = parser.add_subparsers()
     sp_add = sp.add_parser('add', parents=[parent_parser], help='Add an issue to the current git repo')
     sp_show = sp.add_parser('show', parents=[parent_parser], help='Shows all the issues in the current git repo')
+
+    sp_show.add_argument('--number', type=int, help='Show an issue with a given number')
+    sp_show.add_argument('--state', choices=['open', 'closed', 'all'], default='open', help='Show issues with a given state')
+    sp_show.set_defaults(which='show')
 
     sp_add.set_defaults(func=add_issue)
     sp_show.set_defaults(func=show_issues)
@@ -134,6 +143,7 @@ def main():
         try:
             args.func(args, token)
         except AttributeError:
+            print("error 141")
             show_issues(None, token)
     else:
         print("This is not a git directory.")

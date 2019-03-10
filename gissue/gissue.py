@@ -47,9 +47,9 @@ def print_issue(issue_data):
 
         issueString = color("(" + str(issue_data['number']) + ")", fore=issue_data['labels'][0]['color']) + label + " - " + issue_data['title'][:150] #print the first 150 chars of the title
 
-        print(issueString)
+        print(issueString, "\n")
     else:
-        print("(" + str(issue_data['number']) + ")", "-", issue_data['title'][:150])
+        print("(" + str(issue_data['number']) + ")", "-", issue_data['title'][:150], "\n")
 
 
 def get_user_and_pass():

@@ -5,6 +5,7 @@ import requests
 import os
 import re
 import argparse
+from colr import color
 
 from auth import Auth, InvalidTokenError
 import issue
@@ -28,21 +29,27 @@ def git_in_this_directory():
     return os.path.isdir(".git")
 
 def get_label_type(label_data):
+    """
+    takes a label name and returns a matching emoji if we have it.
+    """
     return {
-        'bug' : '🐛 ',
-        'enhancement' : '💉 ',
-        'help wanted' : '🙏🏻 ',
-        'question' : '❓ ',
-        'good first issue' : '🐣 ',
-        'wontfix' : '⛔️ '
-    }.get(label_data, "")
+        'bug' : '🐛',
+        'enhancement' : '💉',
+        'help wanted' : '🙏🏻',
+        'question' : '❓',
+        'good first issue' : '🐣',
+        'wontfix' : '⛔️'
+    }.get(label_data, label_data) # if we dont have a emoji for your label return the label text
 
 def print_issue(issue_data):
     if len(issue_data['labels']) > 0:
         label = get_label_type(issue_data['labels'][0]['name'])
-        print(label + issue_data['labels'][0]['name'], " - ", issue_data['title'])
+
+        issueString = color("(" + str(issue_data['number']) + ")", fore=issue_data['labels'][0]['color']) + label + " - " + issue_data['title'][:150] #print the first 150 chars of the title
+
+        print(issueString)
     else:
-        print(issue_data['title'])
+        print(issue_data['title'][:150])
 
 
 def get_user_and_pass():

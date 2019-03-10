@@ -94,8 +94,7 @@ def add_issue(args, token):
 def show_issues(args, token):
     issue.get_issues(token, get_repo_and_user(), args.label)
 
-if __name__ == "__main__":
-
+def main():
     auth = Auth()
 
     parser = argparse.ArgumentParser()
@@ -149,3 +148,7 @@ if __name__ == "__main__":
         issues = get_issues_for_dir(token, get_repo_and_user())
         for issue in issues:
             print_issue(issue)
+
+
+if __name__ == "__main__":
+    main()

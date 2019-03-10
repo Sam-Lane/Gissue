@@ -10,31 +10,6 @@ from auth import Auth, InvalidTokenError
 import issue
 
 
-
-def get_all_my_issues(authToken):
-    """
-    takes two params as string, user & passwd. which are used for auth.
-    returns all the issues from github on a user account.
-    """
-    params = {'access_token' : authToken}
-    req = requests.get('https://api.github.com/issues', params=params)
-
-    if req.status_code is not 200:
-        raise IOError
-    else:
-        return req.json()
-
-def get_issues_for_dir(authToken, repo_address):
-    """
-    """
-    params = {'access_token' : authToken}
-    req = requests.get('https://api.github.com/repos/{}/{}/issues'.format(repo_address[0], repo_address[1]), params=params)
-    if req.status_code is not 200:
-        print(req)
-        raise IOError
-    else:
-        return req.json()
-
 def get_repo_and_user():
     with open(".git/config") as gitconfig:
         file = gitconfig.read()
@@ -92,10 +67,14 @@ def add_issue(args, token):
     exit()
 
 def show_issues(args, token):
-    if args:
-        issue.get_issues(token, get_repo_and_user(), args.label)
-    else:
-        issue.get_issues(token, get_repo_and_user(), None)
+    # TODO: add a choice to show all the user's issues
+    # issues = get_all_my_issues(token)
+    # for issue in issues:
+    #     print_issue(issue)
+    #
+    issues = issue.get_issues(token, get_repo_and_user(), args.label)
+    for i in issues:
+        print_issue(i)
 
 def main():
     auth = Auth()
@@ -144,17 +123,6 @@ def main():
     else:
         print("This is not a git directory.")
         exit()
-
-
-    if not git_in_this_directory():
-        #if no .git in this directory lets get all your current issues.
-        issues = get_all_my_issues(token)
-        for issue in issues:
-            print_issue(issue)
-    else:
-        issues = get_issues_for_dir(token, get_repo_and_user())
-        for issue in issues:
-            print_issue(issue)
 
 
 if __name__ == "__main__":

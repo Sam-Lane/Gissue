@@ -13,7 +13,7 @@ def get_issues(auth_token, repo_address, labels):
     # TODO: Filtering by labels does not work
     if labels:
         params['labels'] = ",".join(labels)
-    print("Params:\n", params)
+    #print("Params:\n", params)
     issues = requests.get(get_url(repo_address), params=params)
     #print("Issues:\n ", issues)
 

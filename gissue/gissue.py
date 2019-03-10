@@ -92,7 +92,10 @@ def add_issue(args, token):
     exit()
 
 def show_issues(args, token):
-    issue.get_issues(token, get_repo_and_user(), args.label)
+    if args:
+        issue.get_issues(token, get_repo_and_user(), args.label)
+    else:
+        issue.get_issues(token, get_repo_and_user(), None)
 
 def main():
     auth = Auth()
@@ -117,6 +120,7 @@ def main():
 
     args = parser.parse_args()
 
+
     if args.generate_token is not None:
         username_password = get_user_and_pass()
         auth.gen_token(username_password['user'], username_password['password'])
@@ -133,7 +137,10 @@ def main():
         exit()
 
     if git_in_this_directory():
-        args.func(args, token)
+        try:
+            args.func(args, token)
+        except AttributeError:
+            show_issues(None, token)
     else:
         print("This is not a git directory.")
         exit()

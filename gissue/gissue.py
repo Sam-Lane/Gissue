@@ -72,7 +72,11 @@ def show_issues(args, token):
     # for issue in issues:
     #     print_issue(issue)
     #
-    issues = issue.get_issues(token, get_repo_and_user(), args.label)
+    if args:
+        issues = issue.get_issues(token, get_repo_and_user(), args.label)
+    else:
+        issues = issue.get_issues(token, get_repo_and_user(), None)
+    
     for i in issues:
         print_issue(i)
 

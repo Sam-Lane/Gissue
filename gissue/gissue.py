@@ -45,7 +45,7 @@ def print_issue(issue_data):
     if len(issue_data['labels']) > 0:
         label = get_label_type(issue_data['labels'][0]['name'])
 
-        issueString = color("(" + str(issue_data['number']) + ")", fore=issue_data['labels'][0]['color']) + label + " - " + issue_data['title'][:150] #print the first 150 chars of the title
+        issueString = color("(" + str(issue_data['number']) + ") ", fore=issue_data['labels'][0]['color']) + label + " - " + issue_data['title'][:150] #print the first 150 chars of the title
 
         print(issueString, "\n")
     else:

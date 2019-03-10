@@ -7,6 +7,13 @@
 🐙 Github issue manager in the command line
 
 ## Installing
+
+##### clone the repository
+```bash
+$ git clone https://github.com/Sam-Lane/Gissue.git
+```
+
+##### install dependencies
 ```bash
 $ pip install -r requirements.txt
 ```
@@ -19,7 +26,7 @@ $ ln -s $PWD/gissue/gissue.py /usr/local/bin/gissue
 ## Using Gissue
 
 ### Authenticating With Github.
-Before you can use gissue you need to authenticate with GitHub. Gissue uses oauth2 to authenticate and it is super simple to get a token. Simply run:
+Before you can use gissue you need to authenticate with GitHub. Gissue uses Githubs personal access tokens to authenticate and it is super simple to get a token. Simply run:
 
 ```bash
 $ gissue --generate-token
@@ -44,9 +51,9 @@ When running gissue inside a directory with a ```.git``` directory it will retri
 ```bash
 $ gissue
 
-🐛 bug - Error when not conected to internet
+(2)🐛 bug - Error when not conected to internet
 
-💉 enhancement - Feature to add issue from cli
+(1)💉 enhancement - Feature to add issue from cli
 ```
 
 

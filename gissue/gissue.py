@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import os
+import os, sys
 import re
 import argparse
 from colr import color
@@ -80,14 +80,15 @@ def show_issues(args, token):
     # for issue in issues:
     #     print_issue(issue)
     #
-    if args:
-        issues = issue.get_issues(token, get_repo_and_user(), args)
-    else:
+    if args is None:
         issues = issue.get_issues(token, get_repo_and_user(), None)
+    else:
+        issues = issue.get_issues(token, get_repo_and_user(), args)
+
+
 
     if len(issues) > 0:
-
-        if args.number:
+        if args is not None and args.number:
             print_issue(issues)
         else:
             for i in issues:
@@ -118,10 +119,7 @@ def main():
 
     sp_add.set_defaults(func=add_issue)
     sp_show.set_defaults(func=show_issues)
-
-
     args = parser.parse_args()
-
 
     if args.generate_token is not None:
         username_password = get_user_and_pass()
@@ -130,7 +128,6 @@ def main():
     if args.update_token:
         auth.update_token(args.update_token[0])
         exit()
-
 
     try:
         token = auth.get_token()
@@ -141,9 +138,11 @@ def main():
     if git_in_this_directory():
         print("\n")
         try:
+            if not len(sys.argv) > 1:
+                raise AttributeError('No arguments specified. Printing out all issues in the repo')
+
             args.func(args, token)
         except AttributeError:
-            print("error 141")
             show_issues(None, token)
     else:
         print("This is not a git directory.")

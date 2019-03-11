@@ -8,27 +8,31 @@ def get_url(repo_address):
     return git_api_url.format(repo_address[0], repo_address[1])
 
 def get_issues(auth_token, repo_address, args):
-
     params = {'access_token' : auth_token}
 
-    if args.label:
-        params['labels'] = ",".join(labels)
-
-    if args.state:
-        params['state'] = args.state
-
-    # Return a single issue
-
     url = ""
-    if args.number:
-        url = get_url(repo_address) + "/" + str(args.number)
-    else:
+    if args is None:
         url = get_url(repo_address)
+    else:
+        if args.label:
+            params['labels'] = ",".join(args.label)
+
+        if args.state:
+            params['state'] = args.state
+
+        if args.number:
+            # Return a single issue
+            url = get_url(repo_address) + "/" + str(args.number)
+        else:
+            url = get_url(repo_address)
+
+    return get_json(url, params)
 
 
+
+# Gets a json from github, either a list of issues or a single issue
+def get_json(url, params):
     req = requests.get(url, params=params)
-    #print("Status: ", req.status_code)
-
     if req.status_code is not 200:
         raise IOError
     else:

@@ -95,6 +95,22 @@ You can retrieve and print out all the issues in the current repo
 $ gissue show
 ```
 
+#### Additional Show arguments
+There are optional arguments which can be written after the ```show``` command
+
+```bash
+$ gissue show --number [number]
+```
+Retrieves and gets the issue with number/id 1 in the repostitory.
+
+
+```bash
+$ gissue show --state [open, closed, all]
+```
+
+Displays issues with the defined state.
+
+
 
 ## Todo:
 - [ ] Add testing suite
@@ -102,7 +118,6 @@ $ gissue show
 - [ ] Add comment to existing label
 - [ ] Close an issue
 - [ ] Open an issue to github website
-- [ ] Add filter options the issues retrived using the 'show' argument. For example 'gissue show open', which displays all open issues in the git repo.
 
 ## Contributors:
 - [Erik Lange](https://github.com/eriklange)

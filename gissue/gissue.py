@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import os
+import os, sys
 import re
 import argparse
 from colr import color
@@ -42,6 +42,7 @@ def get_label_type(label_data):
     }.get(label_data, label_data) # if we dont have a emoji for your label return the label text
 
 def print_issue(issue_data):
+
     if len(issue_data['labels']) > 0:
         label = get_label_type(issue_data['labels'][0]['name'])
 
@@ -79,14 +80,19 @@ def show_issues(args, token):
     # for issue in issues:
     #     print_issue(issue)
     #
-    if args:
-        issues = issue.get_issues(token, get_repo_and_user(), args.label)
-    else:
+    if args is None:
         issues = issue.get_issues(token, get_repo_and_user(), None)
-    
+    else:
+        issues = issue.get_issues(token, get_repo_and_user(), args)
+
+
+
     if len(issues) > 0:
-        for i in issues:
-            print_issue(i)
+        if args is not None and args.number:
+            print_issue(issues)
+        else:
+            for i in issues:
+                print_issue(i)
     else:
         print('🎉 Hooray. No issues in this repo! 🎉')
 
@@ -107,12 +113,13 @@ def main():
     sp_add = sp.add_parser('add', parents=[parent_parser], help='Add an issue to the current git repo')
     sp_show = sp.add_parser('show', parents=[parent_parser], help='Shows all the issues in the current git repo')
 
+    sp_show.add_argument('--number', type=int, help='Show an issue with a given number')
+    sp_show.add_argument('--state', choices=['open', 'closed', 'all'], default='open', help='Show issues with a given state')
+    sp_show.set_defaults(which='show')
+
     sp_add.set_defaults(func=add_issue)
     sp_show.set_defaults(func=show_issues)
-
-
     args = parser.parse_args()
-
 
     if args.generate_token is not None:
         username_password = get_user_and_pass()
@@ -121,7 +128,6 @@ def main():
     if args.update_token:
         auth.update_token(args.update_token[0])
         exit()
-
 
     try:
         token = auth.get_token()
@@ -132,6 +138,9 @@ def main():
     if git_in_this_directory():
         print("\n")
         try:
+            if not len(sys.argv) > 1:
+                raise AttributeError('No arguments specified. Printing out all issues in the repo')
+
             args.func(args, token)
         except AttributeError:
             show_issues(None, token)

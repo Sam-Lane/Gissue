@@ -15,9 +15,11 @@ def get_repo_and_user():
     with open(".git/config") as gitconfig:
         file = gitconfig.read()
         file = file.splitlines()
+
+        #this can be acheived with os.path.basename too
         url = list(map(lambda x: x.strip(), filter(lambda line: 'url' in line, file)))[0].split("/")
         repo = list(filter(lambda line: ".git" in line, url))[0]
-        repo = re.search('^[^.]+', repo).group(0)
+        repo = repo.split('.')[0]   #re.search('^[^.]+', repo).group(0)
         user = url[3]
 
         return (user, repo)

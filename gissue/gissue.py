@@ -6,6 +6,7 @@ import os, sys
 import re
 import argparse
 from colr import color
+from urllib.parse import urlparse
 
 from auth import Auth, InvalidTokenError
 import issue
@@ -16,13 +17,20 @@ def get_repo_and_user():
         file = gitconfig.read()
         file = file.splitlines()
 
-        #this can be acheived with os.path.basename too
-        url = list(map(lambda x: x.strip(), filter(lambda line: 'url' in line, file)))[0].split("/")
-        repo = list(filter(lambda line: ".git" in line, url))[0]
-        repo = repo.split('.')[0]   #re.search('^[^.]+', repo).group(0)
-        user = url[3]
+        url = urlparse(list(map(lambda x: x.strip(),
+            filter(lambda line: 'url' in line, file)))[0][6:])
 
-        return (user, repo)
+        if url.scheme in ['http', 'https']:
+            path = url.path[1:]
+            (user, repo) = path.split('/')
+        else:
+            # assume ssh url
+            path = url.path.split(':')[1]
+            print(path)
+            (user, repo) = path.split('/')
+
+        # strip '.git'
+        return (user, repo[:-4])
 
 def git_in_this_directory():
     """
@@ -153,3 +161,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

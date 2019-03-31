@@ -3,12 +3,12 @@ from setuptools import setup
 # read the contents of your README file
 from os import path
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
 setup(name='gissue',
-      version='0.3',
+      version='0.4',
       description='Command line tool for managing GitHub project issues.',
       url='http://github.com/sam-lane/gissue',
       author='Sam Lane',

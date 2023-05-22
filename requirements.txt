@@ -1,2 +1,2 @@
-Requests==2.21.0
+Requests==2.31.0
 Colr==0.8.3

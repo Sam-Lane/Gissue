@@ -17,7 +17,7 @@ setup(name='gissue',
       long_description=long_description,
       packages=['gissue'],
       install_requires=[
-            'Requests==2.21.0',
+            'Requests==2.31.0',
             'Colr==0.8.3',
       ],
       zip_safe=False)
